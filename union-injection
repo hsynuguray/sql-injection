@@ -4,6 +4,8 @@ SQL INJECTION UNION ATTACK
 
 SELECT a, b FROM table1 UNION SELECT c, d FROM table2
 
+first '+OR+1=1-- 
+
 1-)
 ' ORDER BY 1--
 
